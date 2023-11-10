@@ -13,6 +13,10 @@ export default {
         main: "#D2D9E5",
         secondary: "#FFB700",
       },
+      textColor: {
+        main: "#D2D9E5",
+        secondary: "#FFB700",
+      },
     },
   },
   plugins: [],

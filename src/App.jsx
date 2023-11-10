@@ -4,7 +4,7 @@ import { NavBar, Footer } from "./components";
 
 export const App = () => {
   return (
-    <div className='min-h-screen '>
+    <div className='min-h-screen w-full bg-gradient-to-b from-slate-900 via-gray-800 to-gray-800 to-gray-800 bg-cover'>
       <NavBar />
       <Routes>
         <Route path='/' element={<Landing />} />
