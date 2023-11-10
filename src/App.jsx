@@ -4,7 +4,7 @@ import { NavBar, Footer } from "./components";
 
 export const App = () => {
   return (
-    <div className='min-h-screen bg-red-200'>
+    <div className='min-h-screen '>
       <NavBar />
       <Routes>
         <Route path='/' element={<Landing />} />
