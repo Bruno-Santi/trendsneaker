@@ -13,3 +13,18 @@
   font-family: "Mona Sans", sans-serif;
   font-weight: 900;
 }
+.marquee {
+  white-space: nowrap;
+  overflow: hidden;
+  position: relative;
+  animation: marquee 10s linear infinite;
+}
+
+@keyframes marquee {
+  0% {
+    transform: translateX(100%);
+  }
+  100% {
+    transform: translateX(-100%);
+  }
+}

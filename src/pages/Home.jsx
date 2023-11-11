@@ -1,11 +1,14 @@
-import { FirstSection, OurBenefits } from "../components";
+import { FirstSection, OurBenefits, Products } from "../components";
+import { ReverseReveal } from "../components/ui";
 
 export const Home = () => {
   return (
     <div>
-      <FirstSection />
-      <OurBenefits />
-      <span className='text-5xl text-orange-50'>Hasta aca llega</span>
+      <ReverseReveal>
+        <FirstSection />
+        <OurBenefits />
+      </ReverseReveal>
+      <Products />
     </div>
   );
 };
