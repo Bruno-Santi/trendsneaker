@@ -1,4 +1,5 @@
 import { useNavigate } from "react-router-dom";
+import "animate.css";
 import Logo from "../assets/Logo5.png";
 
 export const Landing = () => {
@@ -6,9 +7,10 @@ export const Landing = () => {
   const handleClick = () => {
     navigate("/home");
   };
+
   return (
     <div className=' brightness-60  background bg-hero-pattern flex w-full  min-h-screen bg-cover bg-center bg-no-repeat'>
-      <div className='flex flex-col  lg:ml-20 m-auto mt-10'>
+      <div className='flex flex-col animate__animated animate__delay-0.5s animate__slow	 animate__fadeInDown lg:ml-20 m-auto mt-10'>
         <h1 className='lg:text-8xl text-main text-7xl font-monaSans brightness-150 tracking-tight'>
           Runway <br></br>
           <span className='lg:relative lg:bottom-4'>Ready</span>
@@ -25,9 +27,10 @@ export const Landing = () => {
           </span>
         </div>
       </div>
-      <div className='absolute'>
+
+      <div className='absolute left-2 '>
         <img
-          className='w-5/6 lg:w-1/6 fixed  transition-all hover:scale-110 duration-700 bottom-6 left-8 right-5 lg:bottom-10 lg:right-20'
+          className='w-5/6 lg:w-1/6  fixed animate__animated animate__delay-0.5s animate__slow	 animate__fadeInDown transition-all hover:scale-110 duration-700 bottom-6 left-16 right-5 lg:bottom-10 lg:right-20'
           src={Logo}
         ></img>
       </div>
