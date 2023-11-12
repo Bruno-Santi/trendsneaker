@@ -1,5 +1,5 @@
 import { Routes, Route, Navigate } from "react-router-dom";
-import { Landing, Home, Detail, About, Faqs } from "./pages";
+import { Landing, Home, Detail, About, Faqs, Cart } from "./pages";
 import { NavBar, Footer } from "./components";
 import { NavBarResponsive } from "./components/ui";
 
@@ -14,6 +14,7 @@ export const App = () => {
         <Route path='/detail/:id' element={<Detail />} />
         <Route path='/about' element={<About />} />
         <Route path='/faqs' element={<Faqs />} />
+        <Route path='/cart' element={<Cart />} />
         <Route path='/*' element={<Navigate to='/' />} />
       </Routes>
 

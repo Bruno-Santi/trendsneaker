@@ -6,10 +6,15 @@ const initialState = {
   isLoading: true,
   activeShoe: null,
 };
+const savedCart = JSON.parse(localStorage.getItem("cart"));
 
+const initialStateWithLocalStorage = {
+  ...initialState,
+  cart: savedCart || initialState.cart,
+};
 export const productSlice = createSlice({
   name: "product",
-  initialState,
+  initialState: initialStateWithLocalStorage,
   reducers: {
     loadShoes: (state, { payload }) => {
       state.shoes = payload;
@@ -17,9 +22,13 @@ export const productSlice = createSlice({
     },
     addItemCart: (state, { payload }) => {
       state.cart = [...state.cart, payload];
+
+      localStorage.setItem("cart", JSON.stringify(state.cart));
     },
     removeItemCart: (state, { payload }) => {
       state.cart = state.cart.filter((item) => item.id !== payload);
+
+      localStorage.setItem("cart", JSON.stringify(state.cart));
     },
     setActiveShoe: (state, { payload }) => {
       state.activeShoe = payload;

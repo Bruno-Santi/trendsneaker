@@ -4,14 +4,14 @@ import { HiMenu } from "react-icons/hi";
 import { RxCross1 } from "react-icons/Rx";
 import { useModal, useNavigateTo } from "../../hooks";
 import { Link } from "react-scroll";
+import { FiShoppingCart } from "react-icons/fi";
 export const NavBarResponsive = () => {
   const { modal, toggleModal } = useModal();
   const { handleNavigate } = useNavigateTo();
   const { pathname } = useLocation();
 
   const handleClick = (to) => {
-    handleNavigate(to);
-    toggleModal();
+    to === "/cart" ? handleNavigate(to) : handleNavigate(to) && toggleModal();
   };
   if (pathname === "/") {
     return null;
@@ -21,6 +21,9 @@ export const NavBarResponsive = () => {
       <div className='h-20  flex justify-between'>
         <div className='h-fit w-32 my-auto pl-4 ml-4 '>
           <img src={Logo} />
+        </div>
+        <div className='text-main opacity-80 my-auto  ml-24 hover:opacity-100 text-4xl cursor-pointer duration-700 hover:text-secondary  lg:block:hidden'>
+          <FiShoppingCart onClick={() => handleClick("/cart")} />
         </div>
         <div onClick={toggleModal} className='my-auto ml-2 text-main text-6xl '>
           {modal ? (

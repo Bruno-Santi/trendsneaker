@@ -1,21 +1,20 @@
 /* eslint-disable react/no-unescaped-entities */
-import { useLocation, useNavigate } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import { FiShoppingCart } from "react-icons/fi";
 import { Link } from "react-scroll";
 import Logo from "../assets/logo5.png";
 import "animate.css";
 import { useNavigateTo } from "../hooks/useNavigateTo";
+import { useProductsStore } from "../hooks";
 
 export const NavBar = () => {
+  const { cart } = useProductsStore();
   const { handleNavigate } = useNavigateTo();
   const { pathname } = useLocation();
-  if (pathname === "/") {
-    return null;
-  }
+  if (pathname === "/") return null;
 
-  const handleClick = (to) => {
-    handleNavigate(to);
-  };
+  const handleClick = (to) => handleNavigate(to);
+
   return (
     <nav className='w-full animate__animated animate__delay-0.7s animate__slower	 animate__fadeIn lg:block hidden'>
       <section className='flex justify-between items-center py-10 '>
@@ -47,7 +46,14 @@ export const NavBar = () => {
           </span>
         </div>
         <div className='text-main opacity-60 hover:opacity-100 text-4xl text-center mr-8 mb-4 cursor-pointer duration-700 hover:text-secondary  lg:block hidden'>
-          <FiShoppingCart />
+          <FiShoppingCart onClick={() => handleClick("/cart")} />{" "}
+          {!cart.length ? (
+            ""
+          ) : (
+            <span className='absolute rounded-full border-2 text-sm object-cover w-6 h-6 right-20 top-10'>
+              {cart.length}
+            </span>
+          )}
         </div>
       </section>
     </nav>

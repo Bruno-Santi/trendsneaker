@@ -1,23 +1,36 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useNavigateTo, useProductsStore } from "../hooks";
 import "animate.css";
 import { Shoe1 } from "../assets/shoes";
+import { BsFillArrowLeftSquareFill } from "react-icons/bs";
 const activeShoe = {
   id: 6,
   name: "Jordan Stadium 90",
   image: Shoe1,
   price: 60,
-  talles: [
+  sizes: [
     {
-      talle: 40,
+      size: "UK 6",
       stock: 1,
     },
     {
-      talle: 42,
+      size: "UK 7",
       stock: 0,
     },
     {
-      talle: 44,
+      size: "UK 8",
+      stock: 1,
+    },
+    {
+      size: "UK 9",
+      stock: 1,
+    },
+    {
+      size: "UK 10",
+      stock: 0,
+    },
+    {
+      size: "UK 11",
       stock: 1,
     },
   ],
@@ -26,42 +39,87 @@ const activeShoe = {
 };
 
 export const Detail = () => {
-  const { startCleaningActiveShoe } = useProductsStore();
-
+  const [selectedSize, setSelectedSize] = useState(null);
+  const { startCleaningActiveShoe, startAddingItemToCart } = useProductsStore();
+  const handleSizeClick = (size) => {
+    size !== selectedSize ? setSelectedSize(size) : setSelectedSize(null);
+  };
+  const [backing, setBacking] = useState(false);
+  const animateBack = "animate__fadeOutLeft animate__animated animate__delay-0.5s animate__slow";
+  const animateIn = "animate__fadeInLeft animate__animated animate__delay-0.5s animate__slow";
   const { handleNavigate } = useNavigateTo();
+  const handleBack = () => {
+    setBacking(true);
+    setTimeout(() => {
+      handleNavigate(-1);
+    }, 1200);
+  };
   // useEffect(() => {
   //   if (activeShoe === null) handleNavigate("/home");
   //   return () => {
   //     startCleaningActiveShoe();
   //   };
   // }, []);
+  useEffect(() => {
+    window.scroll(0, 0);
+  }, []);
 
   return (
-    <div className='flex justify-center space-x-72 mt-32 animate__animated animate__delay-0.5s animate__slow animate__fadeInLeft mb-20'>
-      <div className='my-auto'>
-        <img className='' src={activeShoe.image} />
-      </div>
-      <div className='flex flex-col  w-[400px] space-y-6 text-main/60 font-monaSans'>
-        <h1 className='text-5xl'>{activeShoe.name}</h1>
-        <span className='w-5/6'>{activeShoe.description}</span>
-        <span>Elegi un talle</span>
-        <div className='flex space-x-8'>
-          {activeShoe.talles.map(({ talle, stock }) => {
-            return (
-              <span key={talle} className={stock ? "text-main cursor-pointer" : "text-gray-600"}>
-                {talle}
-              </span>
-            );
-          })}
+    <div className='lg:min-h-[500px] w-5/6 m-auto'>
+      <BsFillArrowLeftSquareFill
+        onClick={handleBack}
+        className={
+          backing
+            ? `${animateBack} absolute text-main/40 text-6xl top-40 left-20 duration-500 hover:scale-110 hover:text-secondary hover:opacity-100`
+            : `${animateIn} absolute text-main/40 text-6xl top-40 left-20 duration-500 hover:scale-110 hover:text-secondary hover:opacity-100`
+        }
+      />
+      <div
+        className={
+          backing ? `${animateBack} flex space-x-72 mt-32   mb-20` : `${animateIn} flex space-x-72 mt-32  mb-20`
+        }
+      >
+        <div className='my-6 mx-auto'>
+          <img className='w-44 lg:w-full' src={activeShoe.image} alt='Shoe' />
         </div>
-        <span className='text-5xl'>
-          <span className='text-4xl'>$</span>
-          {activeShoe.price}
-        </span>
-        <div className='lg:flex text-left bg-gray-700 lg:bg-gray-700/40 cursor-pointer  group duration-500 hover:bg-slate-300 flex lg:bottom-2 border-solid border-2 rounded-xl border-primary w-3/6 h-12'>
-          <span className='text-secondary text-left text-2xl group-hover:text-gray-800 animate-pulse duration-500 font-bold m-auto '>
-            Add to cart
+        <div className='flex flex-col justify-center m-auto  space-y-6 text-main/60 font-monaSans'>
+          <h1 className='lg:text-5xl'>{activeShoe.name}</h1>
+          <span className='lg:w-5/6'>{activeShoe.description}</span>
+          <span>Select Size</span>
+          <div className='lg:flex space-x-8'>
+            {activeShoe.sizes.map(({ size, stock }) => (
+              <span
+                key={size}
+                className={
+                  stock
+                    ? selectedSize === size
+                      ? "text-secondary bg-main/40 cursor-pointer duration-700 animate-pulse border border-main rounded-lg"
+                      : "text-main cursor-pointer "
+                    : "text-gray-600 "
+                }
+                onClick={() => handleSizeClick(size)}
+              >
+                {size}
+              </span>
+            ))}
+          </div>
+          <span className='text-5xl'>
+            <span className='text-4xl'>$</span>
+            {activeShoe.price}
           </span>
+          {selectedSize && (
+            <div
+              onClick={() => {
+                startAddingItemToCart(activeShoe, selectedSize);
+                setSelectedSize(false);
+              }}
+              className='lg:relative text-left bg-gray-700 lg:bg-gray-700/40 cursor-pointer group duration-500 hover:bg-slate-300 flex border-solid border-2 rounded-xl border-primary w-3/6 h-12 min-h-12'
+            >
+              <span className='text-secondary text-left text-2xl group-hover:text-gray-800 animate-pulse duration-500 font-bold m-auto '>
+                Add to cart
+              </span>
+            </div>
+          )}
         </div>
       </div>
     </div>
