@@ -3,7 +3,7 @@ import Logo from "../../assets/Logo5.png";
 import { HiMenu } from "react-icons/hi";
 import { RxCross1 } from "react-icons/Rx";
 import { useModal, useNavigateTo } from "../../hooks";
-
+import { Link } from "react-scroll";
 export const NavBarResponsive = () => {
   const { modal, toggleModal } = useModal();
   const { handleNavigate } = useNavigateTo();
@@ -41,7 +41,18 @@ export const NavBarResponsive = () => {
           >
             <div className=' '>
               <ul className='text-main  text-center  font-monaSans bg-gray-700/70 w-full flex-col  py-6  text-2xl space-y-6  '>
-                <li className=''>Products</li>
+                {pathname !== "/home" ? (
+                  <li onClick={() => handleClick("/home")} className=''>
+                    Products
+                  </li>
+                ) : (
+                  <Link to='products' spy={true} smooth={true} offset={0} duration={1000}>
+                    <li onClick={toggleModal} className=''>
+                      Products
+                    </li>
+                  </Link>
+                )}
+
                 <li onClick={() => handleClick("/about")}>About Us</li>
                 <li onClick={() => handleClick("/faqs")}>FAQ'S</li>
               </ul>

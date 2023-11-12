@@ -1,5 +1,9 @@
+import { useProductsStore } from "../hooks";
 // eslint-disable-next-line react/prop-types
-export const SneakerCard = ({ id, name, image, price }) => {
+
+export const SneakerCard = ({ id, name, image, price, description }) => {
+  const shoe = { id, name, image, price, description };
+  const { startSettingActiveShoe } = useProductsStore();
   return (
     <section
       key={id}
@@ -17,7 +21,10 @@ export const SneakerCard = ({ id, name, image, price }) => {
         <span className='text-main text-3xl font-bold font-monaSans '>${price}</span>
       </div>
       <div className='lg:flex m-auto bg-gray-700 lg:bg-gray-700/40 cursor-pointer  group duration-500 hover:bg-slate-300 flex lg:bottom-2 border-solid border-2 rounded-xl border-primary w-2/6 h-12'>
-        <span className='text-secondary text-center text-2xl group-hover:text-gray-800 animate-pulse duration-500 font-bold m-auto '>
+        <span
+          onClick={() => startSettingActiveShoe(shoe)}
+          className='text-secondary text-center text-2xl group-hover:text-gray-800 animate-pulse duration-500 font-bold m-auto '
+        >
           Buy now
         </span>
       </div>

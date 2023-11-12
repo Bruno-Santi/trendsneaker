@@ -21,7 +21,7 @@ export const productSlice = createSlice({
     removeItemCart: (state, { payload }) => {
       state.cart = state.cart.filter((item) => item.id !== payload);
     },
-    activeShoe: (state, { payload }) => {
+    setActiveShoe: (state, { payload }) => {
       state.activeShoe = payload;
     },
     cleanActiveShoe: (state) => {
@@ -30,6 +30,6 @@ export const productSlice = createSlice({
   },
 });
 
-export const { loadShoes, addItemCart, removeItemCart, activeShoe, cleanActiveShoe } = productSlice.actions;
+export const { loadShoes, addItemCart, removeItemCart, setActiveShoe, cleanActiveShoe } = productSlice.actions;
 
 export default productSlice.reducer;

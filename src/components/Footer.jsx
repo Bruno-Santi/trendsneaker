@@ -5,12 +5,10 @@ import { AiFillInstagram, AiOutlineTwitter, AiFillFacebook } from "react-icons/a
 import Logo from "../assets/Logo5.png";
 export const Footer = () => {
   const { pathname } = useLocation();
-
-  if (pathname == "/") return null;
-
+  if (pathname === "/") return null;
   return (
-    <Reveal>
-      <section className='lg:flex grid grid-cols-1 mt-20 h-fit lg:justify-evenly m-auto text-center w-full'>
+    <div className='lg:relative bottom-0 left-0 w-full p-4'>
+      <section className='lg:flex grid grid-cols-1 mt-20 h-fit lg:justify-evenly m-auto text-center w-full '>
         <div className='flex-col flex text-left w-[200px] mx-auto mt-10 space-y-3 font-poppins font-bold text-main'>
           <img className='w-40' src={Logo}></img>
           <span className='text-md  '>Call: +123 456 789</span>
@@ -30,6 +28,6 @@ export const Footer = () => {
           <FooterList {...termsList} />
         </div>
       </section>
-    </Reveal>
+    </div>
   );
 };

@@ -53,3 +53,7 @@
     transform: translateY(-20px);
   }
 }
+
+.footer {
+  z-index: 998;
+}
