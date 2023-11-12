@@ -1,19 +1,35 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-  counter: 10,
+  cart: [],
+  shoes: null,
+  isLoading: true,
+  activeShoe: null,
 };
 
 export const productSlice = createSlice({
   name: "product",
   initialState,
   reducers: {
-    increment: (state) => {
-      state.counter += 1;
+    loadShoes: (state, { payload }) => {
+      state.shoes = payload;
+      state.isLoading = false;
+    },
+    addItemCart: (state, { payload }) => {
+      state.cart = [...state.cart, payload];
+    },
+    removeItemCart: (state, { payload }) => {
+      state.cart = state.cart.filter((item) => item.id !== payload);
+    },
+    activeShoe: (state, { payload }) => {
+      state.activeShoe = payload;
+    },
+    cleanActiveShoe: (state) => {
+      state.activeShoe = null;
     },
   },
 });
 
-export const { increment } = productSlice.actions;
+export const { loadShoes, addItemCart, removeItemCart, activeShoe, cleanActiveShoe } = productSlice.actions;
 
 export default productSlice.reducer;
