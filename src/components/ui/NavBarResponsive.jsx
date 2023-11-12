@@ -19,7 +19,7 @@ export const NavBarResponsive = () => {
   return (
     <div className='lg:hidden navBarSticky'>
       <div className='h-20  flex justify-between'>
-        <div className='h-fit w-40 pl-4 my-2'>
+        <div className='h-fit w-32 my-auto pl-4 ml-4 '>
           <img src={Logo} />
         </div>
         <div onClick={toggleModal} className='my-auto ml-2 text-main text-6xl '>

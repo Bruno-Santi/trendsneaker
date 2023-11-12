@@ -13,7 +13,8 @@ export default {
         "hero-pattern": "url('../src/assets/backgroundlanding1.jpg')",
       }),
       fontFamily: {
-        monaSans: ["Mona-Sans", "san-serif"],
+        monaSans: ["Mona-Sans", "sans-serif"],
+        poppins: ["Poppins", "sans-serif"],
       },
       colors: {
         main: "#D2D9E5",
