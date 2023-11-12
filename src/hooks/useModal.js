@@ -1,3 +1,12 @@
+import { useState } from "react";
+
 export const useModal = () => {
-  return;
+  const [modal, setModal] = useState(false);
+
+  const toggleModal = () => setModal(!modal);
+
+  return {
+    modal,
+    toggleModal,
+  };
 };

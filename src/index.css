@@ -28,3 +28,26 @@
     transform: translateX(-100%);
   }
 }
+
+.navBar {
+  height: 60px;
+  position: absolute;
+  top: 20;
+  z-index: 999;
+  width: 100%;
+}
+
+.animate__fadeOutUp {
+  animation: fadeOutUp 0.5s ease forwards;
+}
+
+@keyframes fadeOutUp {
+  from {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+}

@@ -2,9 +2,8 @@
 import { useLocation, useNavigate } from "react-router-dom";
 import { FiShoppingCart } from "react-icons/fi";
 import Logo from "../assets/logo5.png";
-
 import "animate.css";
-import NavBarModal from "./ui/NavBarModal";
+
 export const NavBar = () => {
   const navigate = useNavigate();
   const { pathname } = useLocation();
@@ -12,7 +11,7 @@ export const NavBar = () => {
     return null;
   }
   return (
-    <nav className='w-full animate__animated animate__delay-0.7s animate__slower	 animate__fadeIn '>
+    <nav className='w-full animate__animated animate__delay-0.7s animate__slower	 animate__fadeIn lg:block hidden'>
       <section className='flex justify-between items-center py-10 '>
         <div
           onClick={() => navigate("/")}
@@ -30,9 +29,6 @@ export const NavBar = () => {
         </div>
         <div className='text-main opacity-60 hover:opacity-100 text-4xl text-center mr-8 mb-4 cursor-pointer duration-700 hover:text-secondary  lg:block hidden'>
           <FiShoppingCart />
-        </div>
-        <div>
-          <NavBarModal />
         </div>
       </section>
     </nav>
