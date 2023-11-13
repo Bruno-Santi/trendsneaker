@@ -50,7 +50,7 @@ export const NavBar = () => {
           {!cart.length ? (
             ""
           ) : (
-            <span className='absolute rounded-full border-2 text-sm object-cover w-6 h-6 right-20 top-10'>
+            <span className='absolute rounded-full text-secondary border-secondary border-2 text-sm object-cover w-6 h-6 right-20 top-10'>
               {cart.length}
             </span>
           )}

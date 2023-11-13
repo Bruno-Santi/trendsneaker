@@ -2,14 +2,14 @@ import { useLocation } from "react-router-dom";
 import Logo from "../../assets/Logo5.png";
 import { HiMenu } from "react-icons/hi";
 import { RxCross1 } from "react-icons/Rx";
-import { useModal, useNavigateTo } from "../../hooks";
+import { useModal, useNavigateTo, useProductsStore } from "../../hooks";
 import { Link } from "react-scroll";
 import { FiShoppingCart } from "react-icons/fi";
 export const NavBarResponsive = () => {
   const { modal, toggleModal } = useModal();
   const { handleNavigate } = useNavigateTo();
   const { pathname } = useLocation();
-
+  const { cart } = useProductsStore();
   const handleClick = (to) => {
     to === "/cart" ? handleNavigate(to) : handleNavigate(to) && toggleModal();
   };
@@ -24,6 +24,16 @@ export const NavBarResponsive = () => {
         </div>
         <div className='text-main opacity-80 my-auto  ml-24 hover:opacity-100 text-4xl cursor-pointer duration-700 hover:text-secondary  lg:block:hidden'>
           <FiShoppingCart onClick={() => handleClick("/cart")} />
+
+          {!cart.length ? (
+            ""
+          ) : (
+            <span className='absolute rounded-full border-2 border-secondary text-sm object-cover w-6 h-6 right-36 top-6 text-secondary'>
+              <span className=' right-0 text-secondary top-0 left-0 bottom-0 flex items-center justify-center'>
+                {cart.length}
+              </span>
+            </span>
+          )}
         </div>
         <div onClick={toggleModal} className='my-auto ml-2 text-main text-6xl '>
           {modal ? (
