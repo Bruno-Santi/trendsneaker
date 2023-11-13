@@ -1,18 +1,48 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { cleanActiveShoe, setActiveShoe, addItemCart, removeItemCart } from "../store/products/productsSlice";
+import {
+  cleanActiveShoe,
+  setActiveShoe,
+  addItemCart,
+  removeItemCart,
+  loadShoes,
+} from "../store/products/productsSlice";
 import { useNavigateTo } from "./useNavigateTo";
 import { v4 as uuidv4 } from "uuid";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { fireBaseDB } from "../firebase/config";
+import { collection, doc, getDocs } from "firebase/firestore/lite";
+
 export const useProductsStore = () => {
   const dispatch = useDispatch();
   const { handleNavigate } = useNavigateTo();
-  const { activeShoe, cart } = useSelector((state) => state.products);
-  const startSettingActiveShoe = (shoe) => {
-    console.log(shoe);
-    dispatch(setActiveShoe(shoe));
-    handleNavigate(`/detail/${shoe.id}`);
+  const { activeShoe, cart, shoes, isLoading } = useSelector((state) => state.products);
+  const startLoadingShoes = async () => {
+    const savedShoes = JSON.parse(localStorage.getItem("shoes"));
+
+    if (savedShoes) {
+      dispatch(loadShoes(savedShoes));
+    } else {
+      const collectionRef = await collection(fireBaseDB, `/shoes`);
+      const docs = await getDocs(collectionRef);
+      const shoes = [];
+
+      docs.forEach((doc) => {
+        shoes.push({
+          id: doc.id,
+          ...doc.data(),
+        });
+      });
+
+      dispatch(loadShoes(shoes));
+      localStorage.setItem("shoes", JSON.stringify(shoes));
+    }
+  };
+  const startSettingActiveShoe = (id) => {
+    dispatch(setActiveShoe(id));
+
+    handleNavigate(`/detail/${id}`);
   };
   const startCleaningActiveShoe = () => {
     dispatch(cleanActiveShoe());
@@ -69,5 +99,7 @@ export const useProductsStore = () => {
     startAddingItemToCart,
     deleteItemCart,
     cart,
+    startLoadingShoes,
+    shoes,
   };
 };

@@ -1,12 +1,19 @@
 import { useNavigate } from "react-router-dom";
 import "animate.css";
 import Logo from "../assets/Logo5.png";
+import { useProductsStore } from "../hooks";
+import { useEffect } from "react";
 
 export const Landing = () => {
   const navigate = useNavigate();
   const handleClick = () => {
     navigate("/home");
   };
+  const { startLoadingShoes } = useProductsStore();
+
+  useEffect(() => {
+    startLoadingShoes();
+  }, []);
 
   return (
     <div className=' brightness-60  background bg-hero-pattern flex w-full  min-h-screen bg-cover bg-center bg-no-repeat'>

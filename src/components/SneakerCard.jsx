@@ -1,8 +1,8 @@
 import { useProductsStore } from "../hooks";
 // eslint-disable-next-line react/prop-types
 
-export const SneakerCard = ({ id, name, image, price, description }) => {
-  const shoe = { id, name, image, price, description };
+export const SneakerCard = ({ id, name, image, price, description, sizes }) => {
+  const shoe = { id, name, image, price, description, sizes };
   const { startSettingActiveShoe } = useProductsStore();
   return (
     <section
@@ -11,10 +11,8 @@ export const SneakerCard = ({ id, name, image, price, description }) => {
     >
       <div className=''>
         <div className='blur-lg bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops)) w-full h-full]'></div>
-        <img
-          src={image}
-          className='object-contain relative pt-16 m-auto w-3/4 hover:-rotate-[10deg] duration-700'
-        ></img>
+
+        <img src={image} className='object-contain  pt-16 m-auto w-3/4 hover:-rotate-[10deg] duration-700'></img>
       </div>
       <div className='flex justify-evenly mt-6'>
         <span className='text-main text-3xl w-2/4 font-monaSans'>{name}</span>
@@ -22,7 +20,7 @@ export const SneakerCard = ({ id, name, image, price, description }) => {
       </div>
       <div className='lg:flex m-auto bg-gray-700 lg:bg-gray-700/40 cursor-pointer  group duration-500 hover:bg-slate-300 flex lg:bottom-2 border-solid border-2 rounded-xl border-primary w-2/6 h-12'>
         <span
-          onClick={() => startSettingActiveShoe(shoe)}
+          onClick={() => startSettingActiveShoe(shoe.id)}
           className='text-secondary text-center text-2xl group-hover:text-gray-800 animate-pulse duration-500 font-bold m-auto '
         >
           Buy now

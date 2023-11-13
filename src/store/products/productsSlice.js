@@ -2,8 +2,8 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   cart: [],
-  shoes: null,
-  isLoading: true,
+  shoes: JSON.parse(localStorage.getItem("shoes")) || null,
+  isLoading: !JSON.parse(localStorage.getItem("shoes")),
   activeShoe: null,
 };
 const savedCart = JSON.parse(localStorage.getItem("cart"));
@@ -31,7 +31,7 @@ export const productSlice = createSlice({
       localStorage.setItem("cart", JSON.stringify(state.cart));
     },
     setActiveShoe: (state, { payload }) => {
-      state.activeShoe = payload;
+      state.activeShoe = state.shoes.filter((item) => item.id === payload);
     },
     cleanActiveShoe: (state) => {
       state.activeShoe = null;

@@ -25,7 +25,7 @@ export const NavBar = () => {
           <img className='w-20 lg:w-40' src={Logo} alt='Logo' />
         </div>
         <div
-          className='text-center space-x-28 mr-12
+          className='text-center space-x-28 mr-40
          text-2xl  text-main opacity-60 duration-500 hover:opacity-100  lg:block hidden'
         >
           {pathname != "/home" ? (
