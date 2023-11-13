@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react";
-import { useNavigateTo, useProductsStore } from "../hooks";
+import { useProductsStore } from "../hooks";
 import "animate.css";
 import { Shoe1 } from "../assets/shoes";
 import { BsFillArrowLeftSquareFill } from "react-icons/bs";
+import { useArrowBack } from "../hooks/useArrowBack";
 const activeShoe = {
   id: 6,
   name: "Jordan Stadium 90",
@@ -40,20 +41,10 @@ const activeShoe = {
 
 export const Detail = () => {
   const [selectedSize, setSelectedSize] = useState(null);
+  const { backing, animateBackArrow, animateInArrow, animateBack, animateIn, handleBack } = useArrowBack();
   const { startCleaningActiveShoe, startAddingItemToCart } = useProductsStore();
-  const handleSizeClick = (size) => {
-    size !== selectedSize ? setSelectedSize(size) : setSelectedSize(null);
-  };
-  const [backing, setBacking] = useState(false);
-  const animateBack = "animate__fadeOutLeft animate__animated animate__delay-0.5s animate__slow";
-  const animateIn = "animate__fadeInLeft animate__animated animate__delay-0.5s animate__slow";
-  const { handleNavigate } = useNavigateTo();
-  const handleBack = () => {
-    setBacking(true);
-    setTimeout(() => {
-      handleNavigate(-1);
-    }, 1200);
-  };
+  const handleSizeClick = (size) => (size !== selectedSize ? setSelectedSize(size) : setSelectedSize(null));
+
   // useEffect(() => {
   //   if (activeShoe === null) handleNavigate("/home");
   //   return () => {
@@ -65,37 +56,34 @@ export const Detail = () => {
   }, []);
 
   return (
-    <div className='lg:min-h-[500px] w-5/6 m-auto'>
+    <div className='lg:min-h-[500px] w-full'>
       <BsFillArrowLeftSquareFill
         onClick={handleBack}
-        className={
-          backing
-            ? `${animateBack} absolute text-main/40 text-6xl top-40 left-20 duration-500 hover:scale-110 hover:text-secondary hover:opacity-100`
-            : `${animateIn} absolute text-main/40 text-6xl top-40 left-20 duration-500 hover:scale-110 hover:text-secondary hover:opacity-100`
-        }
+        className={backing ? `${animateBackArrow}` : `${animateInArrow}`}
       />
       <div
         className={
-          backing ? `${animateBack} flex space-x-72 mt-32   mb-20` : `${animateIn} flex space-x-72 mt-32  mb-20`
+          backing
+            ? `${animateBack} flex w-full p-10 mt-32 mx-auto  flex-col mb-20`
+            : `${animateIn} flex flex-col  mt-32 w-full p-10 mx-auto  mb-20`
         }
       >
-        <div className='my-6 mx-auto'>
-          <img className='w-44 lg:w-full' src={activeShoe.image} alt='Shoe' />
-        </div>
-        <div className='flex flex-col justify-center m-auto  space-y-6 text-main/60 font-monaSans'>
-          <h1 className='lg:text-5xl'>{activeShoe.name}</h1>
+        <img className='w-full mx-auto lg:w-96 mb-10' src={activeShoe.image} alt='Shoe' />
+
+        <div className='flex flex-col mx-auto space-y-6 text-main/60 font-monaSans'>
+          <h1 className=' text-3xl lg:text-5xl'>{activeShoe.name}</h1>
           <span className='lg:w-5/6'>{activeShoe.description}</span>
-          <span>Select Size</span>
-          <div className='lg:flex space-x-8'>
+          <span className='text-secondary  text-xl ml-2'>Select Size</span>
+          <div className='lg:flex flex my-auto w-2/6'>
             {activeShoe.sizes.map(({ size, stock }) => (
               <span
                 key={size}
                 className={
                   stock
                     ? selectedSize === size
-                      ? "text-secondary bg-main/40 cursor-pointer duration-700 animate-pulse border border-main rounded-lg"
-                      : "text-main cursor-pointer "
-                    : "text-gray-600 "
+                      ? "text-secondary bg-main/40 my-auto mx-auto cursor-pointer w-full duration-700 p-2 animate-pulse border border-main rounded-lg"
+                      : "text-main w-full my-auto mx-auto cursor-pointer p-2"
+                    : "text-gray-600 w-full my-auto mx-auto p-2 "
                 }
                 onClick={() => handleSizeClick(size)}
               >
@@ -113,7 +101,7 @@ export const Detail = () => {
                 startAddingItemToCart(activeShoe, selectedSize);
                 setSelectedSize(false);
               }}
-              className='lg:relative text-left bg-gray-700 lg:bg-gray-700/40 cursor-pointer group duration-500 hover:bg-slate-300 flex border-solid border-2 rounded-xl border-primary w-3/6 h-12 min-h-12'
+              className='lg:relative  text-left bg-gray-700 lg:bg-gray-700/40 cursor-pointer group duration-500 hover:bg-slate-300 flex border-solid border-2 rounded-xl border-primary w-full lg:w-2/6 h-12 min-h-12'
             >
               <span className='text-secondary text-left text-2xl group-hover:text-gray-800 animate-pulse duration-500 font-bold m-auto '>
                 Add to cart
